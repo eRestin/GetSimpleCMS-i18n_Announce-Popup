@@ -1,0 +1,30 @@
+div.announcement-date {
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 3px;
+}
+
+.i18n_announcement {
+    margin-bottom: 20px;
+}
+
+.i18n_announcement table {
+    margin-top: 3px;
+    margin-left: 6px;
+    background-color: #EEE;
+}
+
+img.calendar_icon, img.ui-datepicker-trigger {
+    height: 20px;
+    margin-left: 2px;
+    position: relative;
+    top: 4px;
+}
+
+div#alert_message {
+    text-align: center;
+    width: 100%;
+    background-color: #FEE;
+    font-weight: bold;
+    font-size: 13px;
+}
