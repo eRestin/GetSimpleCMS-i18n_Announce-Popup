@@ -132,7 +132,11 @@ function get_current_announcements() {
     $announcements = return_announcements();
     foreach ($announcements as $ann) {
         if (is_current_announcement($ann)) {
+            echo '<div id="hover"></div>';
+            echo '<div id="popup">';
+            echo '<div id="close">X</div>';
             echo get_announcement_field($ann, 'title') . "<br/>";
+            echo '</div>';
         }
     }
 }
