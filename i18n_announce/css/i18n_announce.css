@@ -24,7 +24,10 @@ img.calendar_icon, img.ui-datepicker-trigger {
 div#alert_message {
     text-align: center;
     width: 100%;
-    background-color: #FEE;
+    background-color: #CF3805;
+    color: white;
     font-weight: bold;
     font-size: 13px;
+    padding: 10px 0px;
+    margin-bottom: 15px;
 }

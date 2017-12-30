@@ -57,7 +57,7 @@ queue_script('i18n_announce', GSBACK);
 add_filter('content', 'filter_anouncements');
 
 # Jquery
-register_script('i18n_announce_jquery', $SITEURL . 'plugins/i18n_announce/jquery-ui/js/jquery-1.10.2.js', '1.10.2', FALSE);
+// register_script('i18n_announce_jquery', $SITEURL . 'plugins/i18n_announce/jquery-ui/js/jquery-1.10.2.js', '1.10.2', FALSE);
 register_script('i18n_announce_jquery_ui', $SITEURL . 'plugins/i18n_announce/jquery-ui/js/jquery-ui-1.10.4.custom.min.js', '1.10.4', FALSE);
 queue_script('i18n_announce_jquery', GSBACK);
 queue_script('i18n_announce_jquery_ui', GSBACK);
