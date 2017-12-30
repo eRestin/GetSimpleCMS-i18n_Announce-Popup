@@ -36,17 +36,17 @@ $ANNOUNCE_TEST_DATA[1] = array("start" => strtotime("20140501"), "end" => strtot
 # register plugin
 register_plugin(
     $this_plugin,                           # Plugin id
-    'i18n Announce',                        # Plugin Name
-    '0.1',                                  # Plugin version
-    'Aschwin van der Woude',                # Plugin author
-    '',                                     # Author website
-    'Provides time-based announcements',    # Plugin description
+    'I18N Ogłoszenia',                      # Plugin Name
+    '0.2',                                  # Plugin version
+    'Łukasz Iljaszewicz',                   # Plugin author
+    'http://lukasziljaszewicz.pl',          # Author website
+    'Wyświetla pop-up w określonym czasie', # Plugin description
     'pages',                                # Page type - on which admin tab to display
     'i18n_announce_main'                    # Main function (administration)
 );
 
 # Plugin setup
-add_action('pages-sidebar', 'createSideMenu', array($this_plugin,'Announcements'));
+add_action('pages-sidebar', 'createSideMenu', array($this_plugin,'Ogłoszenia'));
 add_action('index-pretemplate', 'i18n_announce_index_pretemplate_hook', array());
 register_style('i18n_announce-style', $SITEURL.'plugins/i18n_announce/css/i18n_announce.css', '1.0', 'screen');
 queue_style('i18n_announce-style', GSBACK); 
@@ -179,15 +179,15 @@ function print_empty_announcement($id) {
 
     echo "<div class=\"i18n_announcement\">";
     echo "<div class=\"announcement-date\">";
-    echo "Period shown: ";
-    echo '<span id="ann-start-label-' . $id . '">&lt;Please select start date&gt;</span>';
+    echo "Wyświetlane: ";
+    echo '<span id="ann-start-label-' . $id . '">&lt;Proszę wybrać datę początkową&gt;</span>';
     echo '<input type="hidden" class="date" data-label="ann-start-label-' . $id . '" name="' . get_field_name($id, "start") . '"/>';
     echo "&nbsp;-&nbsp;";
-    echo '<span id="ann-end-label-' . $id . '">&lt;Please select end date&gt;</span>';
+    echo '<span id="ann-end-label-' . $id . '">&lt;Proszę wybrać datę końcową&gt;</span>';
     echo '<input type="hidden" class="date" data-label="ann-end-label-' . $id . '" name="' . get_field_name($id, "end") . '"/>';
     echo "</div>";
     echo "<table>";
-    echo "<tr><th>Language</th><th>Title</th><th>Description</th></tr>";
+    echo "<tr><th>Język</th><th>Tytuł</th><th>Krótki opis</th></tr>";
     foreach (return_i18n_available_languages() as $lang) {
         echo "<tr>";
         echo "<td><b>" . $lang . "</b></td>";
@@ -203,7 +203,7 @@ function print_announcement($id, $ann) {
     global $SITEURL;
     echo "<div class=\"i18n_announcement\">";
     echo "<div class=\"announcement-date\">";
-    echo "Period shown: ";
+    echo "Wyświetlane: ";
     echo '<span id="ann-start-label-' . $id . '">' . date("d F Y", $ann['start']) . '</span>';
     echo '<input type="hidden" data-label="ann-start-label-' . $id . '" class="date" name="' . get_field_name($id, "start") . '" value="'. unix2js_timestamp($ann['start']) . '" />';
     echo "&nbsp;-&nbsp;";
@@ -211,7 +211,7 @@ function print_announcement($id, $ann) {
     echo '<input type="hidden" data-label="ann-end-label-' . $id . '" class="date" name="' . get_field_name($id, "end") . '" value="'. unix2js_timestamp($ann['end']) . '" />';
     echo "</div>";
     echo "<table>";
-    echo "<tr><th>Language</th><th>Title</th><th>Description</th></tr>";
+    echo "<tr><th>Język</th><th>Tytuł</th><th>Krótki opis</th></tr>";
     foreach (get_announcement_languages($ann) as $lang) {
         echo "<tr>";
         echo "<td><b>" . $lang . "</b></td>";
@@ -224,14 +224,14 @@ function print_announcement($id, $ann) {
 }
 
 function i18n_print_header($current_tab = "active") {
-    echo '<h3 class="floated" style="float:left">Announcements</h3>';
+    echo '<h3 class="floated" style="float:left">Ogłoszenia</h3>';
     echo '<div class="edit-nav">';
     if ($current_tab == "active") {
-        echo ' <a href="load.php?id=i18n_announce&tab=old">Old</a>';
-        echo ' <a href="load.php?id=i18n_announce&tab=active" class="current">Active</a>';
+        echo ' <a href="load.php?id=i18n_announce&tab=old">Starsze</a>';
+        echo ' <a href="load.php?id=i18n_announce&tab=active" class="current">Obecne</a>';
     } else {
-        echo ' <a href="load.php?id=i18n_announce&tab=old" class="current">Old</a>';
-        echo ' <a href="load.php?id=i18n_announce&tab=active">Active</a>';
+        echo ' <a href="load.php?id=i18n_announce&tab=old" class="current">Starsze</a>';
+        echo ' <a href="load.php?id=i18n_announce&tab=active">Obecne</a>';
     }
     echo ' <div class="clear"></div>';
     echo '</div>';
@@ -239,7 +239,7 @@ function i18n_print_header($current_tab = "active") {
 }
 
 function i18n_print_footer() {
-    echo '<input class="submit" type="submit" name="save_announcements" value="Save Announcements">';
+    echo '<input class="submit" type="submit" name="save_announcements" value="Zapisz ogłoszenie">';
     echo '</form>';
 }
 
@@ -269,7 +269,7 @@ function i18n_announce_show_old() {
         }
     }
     if ($count == 0) {
-        echo "There are no old announcements.";
+        echo "Nie ma starszych ogłoszeń.<br /><br />";
     }
     i18n_print_footer();
 }
@@ -323,10 +323,10 @@ function filter_anouncements($content) {
     $announcements = return_announcements();
     $html = "";
     foreach($announcements as $ann) {
-        $html .= '<h2>' . get_announcement_field($ann, 'title') . '</h2>';
-        $desc = get_announcement_field($ann, 'description');
+        $html .= '<h2>' . get_announcement_field($ann, 'tytuł') . '</h2>';
+        $desc = get_announcement_field($ann, 'krótki opis');
         if ($desc == "") {
-            $desc = "&lt;No description&gt;";
+            $desc = "&lt;Brak opisu&gt;";
         }
         $html .= '<div>' . $desc  . '</div>';
     }
@@ -344,7 +344,7 @@ function i18n_announce_main() {
         $announcements = array_replace($old_announcements, $new_announcements);
         $announcements = remove_empty_announcements($announcements);
         write_announcements($announcements);
-        echo '<div id="alert_message">Announcements saved</div>';
+        echo '<div id="alert_message">Ogłoszenie zapisane</div>';
     }
     if (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'old') {
         i18n_announce_show_old();
