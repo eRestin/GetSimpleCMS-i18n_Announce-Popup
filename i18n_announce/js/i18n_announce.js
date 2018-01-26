@@ -2,7 +2,7 @@ $(function() {
     $(".date").datepicker({
         dateFormat: $.datepicker.TIMESTAMP,
         showOn: "button",
-        buttonImage: "/plugins/i18n_announce/images/83-calendar.png",
+        buttonImage: "../plugins/i18n_announce/images/83-calendar.png",
         buttonImageOnly: true,
         onSelect: function(dateText, inst) {
             var date = $.datepicker.parseDate(inst.settings.dateFormat || $.datepicker._defaults.dateFormat, dateText, inst.settings);
